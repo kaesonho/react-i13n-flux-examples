@@ -14,13 +14,12 @@ var MessageSection = require('./MessageSection.react');
 var React = require('react');
 var ThreadSection = require('./ThreadSection.react');
 var setupI13n = require('react-i13n').setupI13n;
-var ReactI13n = require('react-i13n').ReactI13n;
 var DemoPlugin = require('../../../demo-plugin');
 
 var ChatApp = React.createClass({
   componentDidMount: function() {
     // fire a pageview
-    ReactI13n.getInstance().execute('pageview', {});
+    this.props.i13n.executeEvent('pageview', {});
   },
   render: function() {
     return (

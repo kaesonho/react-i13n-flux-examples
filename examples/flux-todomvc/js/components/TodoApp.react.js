@@ -18,7 +18,6 @@ var MainSection = require('./MainSection.react');
 var React = require('react');
 var TodoStore = require('../stores/TodoStore');
 var setupI13n = require('react-i13n').setupI13n;
-var ReactI13n = require('react-i13n').ReactI13n;
 var DemoPlugin = require('../../../demo-plugin');
 
 /**
@@ -40,7 +39,7 @@ var TodoApp = React.createClass({
   componentDidMount: function() {
     TodoStore.addChangeListener(this._onChange);
     // fire a pageview
-    ReactI13n.getInstance().execute('pageview', {});
+    this.props.i13n.executeEvent('pageview', {});
   },
 
   componentWillUnmount: function() {
