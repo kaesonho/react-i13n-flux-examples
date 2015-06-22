@@ -17,6 +17,8 @@ var Header = require('./Header.react');
 var MainSection = require('./MainSection.react');
 var React = require('react');
 var TodoStore = require('../stores/TodoStore');
+var setupI13n = require('react-i13n').setupI13n;
+var DemoPlugin = require('../../../demo-plugin');
 
 /**
  * Retrieve the current TODO data from the TodoStore
@@ -36,6 +38,8 @@ var TodoApp = React.createClass({
 
   componentDidMount: function() {
     TodoStore.addChangeListener(this._onChange);
+    // fire a pageview
+    this.props.i13n.executeEvent('pageview', {});
   },
 
   componentWillUnmount: function() {
@@ -67,4 +71,4 @@ var TodoApp = React.createClass({
 
 });
 
-module.exports = TodoApp;
+module.exports = setupI13n(TodoApp, {rootModelData: {app: 'todo'}}, [DemoPlugin]);

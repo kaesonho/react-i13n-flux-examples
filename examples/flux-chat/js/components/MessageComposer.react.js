@@ -12,6 +12,7 @@
 
 var ChatMessageActionCreators = require('../actions/ChatMessageActionCreators');
 var React = require('react');
+var createI13nNode = require('react-i13n').createI13nNode;
 
 var ENTER_KEY_CODE = 13;
 
@@ -49,9 +50,16 @@ var MessageComposer = React.createClass({
         ChatMessageActionCreators.createMessage(text, this.props.threadID);
       }
       this.setState({text: ''});
+      // execute the custom event textInput here
+      // createI13nNode will create a parent component with i13nNode, 
+      // use getI13nNode here to get the i13n node created by createI13nNode
+      var i13nNode = this.props.i13n.getI13nNode();
+      this.props.i13n.executeEvent('textInput', {i13nNode: i13nNode});
     }
+    
   }
 
 });
 
-module.exports = MessageComposer;
+// create a i13n node for message composer, so that we can get the i13n node via context and fire event
+module.exports = createI13nNode(MessageComposer, {i13nModel: {category: 'message-composer', action: 'compose'}});
